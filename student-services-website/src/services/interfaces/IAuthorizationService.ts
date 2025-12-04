@@ -1,3 +1,4 @@
 export interface IAuthorizationService {
-  hasRole(userId: string, role: string): Promise<boolean>
+  checkPermission(userID: string, resource: string, action: string): boolean;
+  hasRole(userID: string, role: string): boolean;
 }

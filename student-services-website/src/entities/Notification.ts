@@ -6,5 +6,5 @@ export class Notification {
     public dateSent: Date,
     public isRead: boolean = false,
     public type?: 'EMAIL' | 'SMS' | 'SYSTEM'
-  ) {}
+  ) { }
 }

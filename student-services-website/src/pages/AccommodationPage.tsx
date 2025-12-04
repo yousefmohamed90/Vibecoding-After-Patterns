@@ -25,7 +25,6 @@ export const AccommodationPage: React.FC = () => {
 
   useEffect(() => {
     loadAccommodations();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadAccommodations = () => {
@@ -100,7 +99,7 @@ export const AccommodationPage: React.FC = () => {
       {/* Search Section - Strategy Pattern UI */}
       <Card className="mb-8 animate-slide-up">
         <h2 className="text-xl font-semibold mb-4">Search (Strategy Pattern Demo)</h2>
-        
+
         <div className="flex flex-col md:flex-row gap-4">
           {/* Strategy Selection */}
           <div className="flex-1">
@@ -178,13 +177,13 @@ export const AccommodationPage: React.FC = () => {
               style={{ animationDelay: `${idx * 50}ms` }}
             >
               {/* Accommodation Image Placeholder */}
-              <div className="bg-gradient-to-br from-primary-400 to-primary-600 h-48 rounded-t-lg -m-6 mb-4 flex items-center justify-center">
+              <div className="bg-gradient-to-br from-blue- to-blue- h-48 rounded-t-lg -m-6 mb-4 flex items-center justify-center">
                 <MapPin size={64} className="text-white opacity-50" />
               </div>
 
               {/* Accommodation Details */}
               <h3 className="text-xl font-bold text-gray-800 mb-2">{accommodation.name}</h3>
-              
+
               <div className="flex items-center text-gray-600 mb-2">
                 <MapPin size={16} className="mr-2" />
                 <span>{accommodation.location}</span>
@@ -197,7 +196,7 @@ export const AccommodationPage: React.FC = () => {
 
               <div className="flex items-center text-gray-600 mb-4">
                 <DollarSign size={16} className="mr-2" />
-                <span className="text-lg font-semibold text-primary-600">
+                <span className="text-lg font-semibold text-blue-">
                   ${accommodation.pricePerNight}/night
                 </span>
               </div>
@@ -211,7 +210,7 @@ export const AccommodationPage: React.FC = () => {
                   {accommodation.amenities.map((amenity, idx) => (
                     <span
                       key={idx}
-                      className="bg-primary-100 text-primary-700 text-xs px-2 py-1 rounded"
+                      className="bg-blue- text-blue- text-xs px-2 py-1 rounded"
                     >
                       {amenity}
                     </span>

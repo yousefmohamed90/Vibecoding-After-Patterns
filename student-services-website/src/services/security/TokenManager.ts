@@ -18,9 +18,9 @@ export class TokenManager {
     };
 
     const token = btoa(JSON.stringify(payload));
-    
+
     console.log('🎫 TokenManager: Token generated for user:', user.email);
-    
+
     return {
       token,
       userId: user.userID,

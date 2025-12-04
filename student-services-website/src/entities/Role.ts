@@ -3,5 +3,5 @@ export class Role {
     public roleID: string,
     public roleName: string,
     public permissions: string[]
-  ) {}
+  ) { }
 }

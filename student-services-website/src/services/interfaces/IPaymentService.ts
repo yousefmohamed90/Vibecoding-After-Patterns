@@ -1,3 +1,3 @@
 export interface IPaymentService {
-  charge(userId: string, amount: number): Promise<boolean>
+  processTransaction(studentID: string, amount: number, type: string, description: string): boolean;
 }

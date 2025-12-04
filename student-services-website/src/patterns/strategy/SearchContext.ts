@@ -1,4 +1,4 @@
-import { ISearchStrategy } from './ISearchStrategy'
+import { ISearchStrategy } from './ISearchStrategy';
 
 export class SearchContext {
   private strategy: ISearchStrategy | null = null;
@@ -13,13 +13,8 @@ export class SearchContext {
 
   executeSearch(query: string, items: any[]): any[] {
     if (!this.strategy) {
-      throw new Error('Search strategy not set');
+      return items;
     }
-    // Return results synchronously (not awaiting Promise)
-    const result = this.strategy.search(query);
-    if (result instanceof Promise) {
-      return []; // Fallback for async strategies
-    }
-    return result;
+    return this.strategy.search(query, items);
   }
 }

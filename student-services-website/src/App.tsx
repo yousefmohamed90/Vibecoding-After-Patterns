@@ -1,3 +1,4 @@
+// src/App.tsx - COMPLETE WITH ALL ROUTES
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
@@ -9,6 +10,11 @@ import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { StudentDashboard } from './pages/StudentDashboard';
 import { AccommodationPage } from './pages/AccommodationPage';
+import { TransportPage } from './pages/TransportPage';
+import { MealsPage } from './pages/MealsPage';
+import { ClubsPage } from './pages/ClubsPage';
+import { NotificationsPage } from './pages/NotificationsPage';
+import { PaymentPage } from './pages/PaymentPage';
 
 // Protected Route Component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -23,9 +29,12 @@ const AppRoutes: React.FC = () => {
       <div className="min-h-screen bg-gray-50">
         <Navbar />
         <Routes>
+          {/* Public Routes */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+
+          {/* Protected Routes */}
           <Route
             path="/dashboard"
             element={
@@ -42,6 +51,49 @@ const AppRoutes: React.FC = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/transport"
+            element={
+              <ProtectedRoute>
+                <TransportPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/meals"
+            element={
+              <ProtectedRoute>
+                <MealsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/clubs"
+            element={
+              <ProtectedRoute>
+                <ClubsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/notifications"
+            element={
+              <ProtectedRoute>
+                <NotificationsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/payments"
+            element={
+              <ProtectedRoute>
+                <PaymentPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Catch all - redirect to home */}
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
     </Router>

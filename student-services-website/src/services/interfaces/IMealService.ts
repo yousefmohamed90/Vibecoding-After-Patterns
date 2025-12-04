@@ -1,3 +1,5 @@
 export interface IMealService {
-  orderMeal(studentId: string, mealId: string): Promise<boolean>
+  selectMeal(studentID: string, mealType: string): void;
+  cancelMeal(studentID: string, mealID: string): void;
+  getAvailableMeals(): any[];
 }

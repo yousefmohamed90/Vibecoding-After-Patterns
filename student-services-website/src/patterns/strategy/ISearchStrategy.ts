@@ -1,1 +1,3 @@
-export interface ISearchStrategy { search(query: string): Promise<any[]> }
+export interface ISearchStrategy {
+    search(query: string, items: any[]): any[];
+}

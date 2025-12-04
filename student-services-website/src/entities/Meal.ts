@@ -7,5 +7,5 @@ export class Meal {
     public calories?: number,
     public description?: string,
     public ingredients?: string[]
-  ) {}
+  ) { }
 }

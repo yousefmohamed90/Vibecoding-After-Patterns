@@ -1,8 +1,9 @@
+// Database Access Interface
 export interface IDatabaseAccess {
-  connect(): Promise<void>
-  disconnect(): Promise<void>
-  executeQuery(query: string): Promise<any>
-  beginTransaction(): Promise<void>
-  commit(): Promise<void>
-  rollback(): Promise<void>
+  connect(): void;
+  disconnect(): void;
+  executeQuery(query: string): any;
+  beginTransaction(): void;
+  commit(): void;
+  rollback(): void;
 }

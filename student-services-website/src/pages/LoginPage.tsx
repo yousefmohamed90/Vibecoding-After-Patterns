@@ -55,13 +55,13 @@ export const LoginPage: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
       <Card className="w-full max-w-md">
         <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
-        
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input
             label="Email"
             type="email"
             value={email}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             error={errors.email}
             placeholder="student@example.com"
           />
@@ -70,7 +70,7 @@ export const LoginPage: React.FC = () => {
             label="Password"
             type="password"
             value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             error={errors.password}
             placeholder="••••••••"
           />

@@ -63,12 +63,12 @@ export const RegisterPage: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
       <Card className="w-full max-w-md">
         <h2 className="text-3xl font-bold text-center mb-6">Register</h2>
-        
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input
             label="Full Name"
             value={formData.name}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, name: e.target.value })}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             error={errors.name}
             placeholder="John Doe"
           />
@@ -77,7 +77,7 @@ export const RegisterPage: React.FC = () => {
             label="Email"
             type="email"
             value={formData.email}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             error={errors.email}
             placeholder="student@example.com"
           />
@@ -86,7 +86,7 @@ export const RegisterPage: React.FC = () => {
             label="Password"
             type="password"
             value={formData.password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, password: e.target.value })}
+            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
             error={errors.password}
             placeholder="••••••••"
           />
@@ -95,13 +95,13 @@ export const RegisterPage: React.FC = () => {
             label="Confirm Password"
             type="password"
             value={formData.confirmPassword}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, confirmPassword: e.target.value })}
+            onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
             error={errors.confirmPassword}
             placeholder="••••••••"
           />
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">I am a:</label>
+            <label className="label">I am a:</label>
             <div className="flex space-x-4 mt-2">
               <label className="flex items-center">
                 <input

@@ -1,3 +1,6 @@
 export interface IClubService {
-  joinClub(studentId: string, clubId: string): Promise<boolean>
+  chooseClub(studentID: string, clubID: string): void;
+  cancelClubMembership(studentID: string, clubID: string): void;
+  getAvailableClubs(): any[];
+  getStudentMemberships(studentID: string): any[];
 }

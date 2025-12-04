@@ -1,5 +1,4 @@
-import { IPaymentService } from '../interfaces/IPaymentService'
-
+import { IPaymentService } from '../interfaces/IPaymentService';
 import { IRepository } from '../../repositories/IRepository';
 import { IPaymentProcessor } from '../../patterns/adapter/IPaymentProcessor';
 import { Payment } from '../../entities/Payment';
@@ -12,39 +11,48 @@ export class PaymentService implements IPaymentService {
     console.log('💰 PaymentService: Created');
   }
 
-  async charge(userId: string, amount: number): Promise<boolean> {
-    console.log(`💰 PaymentService: Processing payment of $${amount} for user ${userId}`);
+  processTransaction(
+    studentID: string,
+    amount: number,
+    type: string,
+    description: string
+  ): boolean {
+    console.log(`💰 PaymentService: Processing transaction for student ${studentID}`);
 
     // Validate amount
     if (!this.processor.validatePayment(amount)) {
       throw new Error('Invalid payment amount');
     }
 
-    // Process payment through payment processor
+    // Process payment through payment processor (Strategy Pattern)
     const success = this.processor.processPayment(amount);
 
     if (success) {
+      // Save payment record
       const payment = new Payment(
         `payment_${Date.now()}`,
-        userId,
+        studentID,
         amount,
         new Date(),
-        'CARD',
+        type,
         'COMPLETED',
-        'Payment processed'
+        description
       );
+
       this.repository.save(payment, 'payments');
       console.log('✅ PaymentService: Payment successful and recorded');
     } else {
+      // Save failed payment
       const payment = new Payment(
         `payment_${Date.now()}`,
-        userId,
+        studentID,
         amount,
         new Date(),
-        'CARD',
+        type,
         'FAILED',
-        'Payment failed'
+        description
       );
+
       this.repository.save(payment, 'payments');
       console.log('❌ PaymentService: Payment failed');
     }

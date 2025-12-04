@@ -1,3 +1,6 @@
 export interface IAccommodationService {
-  bookAccommodation(studentId: string, accommodationId: string): Promise<boolean>
+  bookHousing(studentID: string, accommodationID: string): void;
+  cancelBooking(studentID: string, bookingID: string): void;
+  getAvailableAccommodations(): any[];
+  getStudentBookings(studentID: string): any[];
 }

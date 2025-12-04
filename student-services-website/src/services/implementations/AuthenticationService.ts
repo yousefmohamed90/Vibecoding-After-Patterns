@@ -16,19 +16,12 @@ export class AuthenticationService implements IAuthenticationService {
     console.log('🔐 AuthenticationService: Created');
   }
 
-  async login(username: string, password: string): Promise<string> {
-    console.log('🔐 AuthenticationService: Login for user:', username);
-    // Delegate to authenticate and return token
-    const authToken = this.authenticate(username, password);
-    return authToken.token;
-  }
-
   authenticate(email: string, password: string): AuthToken {
     console.log('🔐 AuthenticationService: Authenticating user:', email);
 
     // Find user by email
     const users = this.userRepository.findByQuery({ email }, 'users');
-    
+
     if (users.length === 0) {
       throw new Error('Invalid email or password');
     }
@@ -42,7 +35,7 @@ export class AuthenticationService implements IAuthenticationService {
 
     // Generate token
     const token = this.tokenManager.generateToken(user);
-    
+
     console.log('✅ AuthenticationService: User authenticated successfully');
     return token;
   }
@@ -106,16 +99,16 @@ export class AuthenticationService implements IAuthenticationService {
     return this.tokenManager.validateToken(token);
   }
 
-  async logout(): Promise<void> {
-    console.log(`🔐 AuthenticationService: Logging out user`);
-    // Blacklist token logic would go here
+  logout(token: string): void {
+    console.log('🔐 AuthenticationService: User logged out');
+    // In production, you'd invalidate the token in a blacklist
   }
 
   changePassword(userID: string, oldPassword: string, newPassword: string): boolean {
     console.log('🔐 AuthenticationService: Changing password for user:', userID);
 
-    const user = this.userRepository.findById(userID, 'users');
-    
+    const user = this.userRepository.findById(userID, 'users', 'userID');
+
     if (!user) {
       throw new Error('User not found');
     }

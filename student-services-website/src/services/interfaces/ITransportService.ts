@@ -1,3 +1,6 @@
 export interface ITransportService {
-  requestTransport(studentId: string, details: any): Promise<boolean>
+  bookTransport(studentID: string, transportID: string): void;
+  cancelBooking(studentID: string, bookingID: string): void;
+  getAvailableTransport(): any[];
+  getStudentBookings(studentID: string): any[];
 }

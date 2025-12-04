@@ -7,5 +7,5 @@ export class Transport {
     public pricePerSeat: number,
     public route?: string,
     public departureTime?: string
-  ) {}
+  ) { }
 }

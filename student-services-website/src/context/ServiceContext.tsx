@@ -26,49 +26,49 @@ interface ServiceContextType {
 
 const ServiceContext = createContext<ServiceContextType | undefined>(undefined);
 
-export { ServiceContext };
-
 export const ServiceProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // Initialize architecture (Singleton)
-  const dbProxy = new DatabaseProxy();
-  dbProxy.connect();
+  // Initialize architecture (Singleton) - memoized to prevent re-creation
+  const services = React.useMemo(() => {
+    const dbProxy = new DatabaseProxy();
+    dbProxy.connect();
 
-  const repository = new Repository(dbProxy);
+    const repository = new Repository(dbProxy);
 
-  // Initialize services
-  const authService = new AuthenticationService(repository);
-  const authorizationService = new AuthorizationService(repository);
-  
-  // Payment processor (can switch between Visa and VirtualCoins)
-  const paymentProcessor = new VisaPayment(); // or new VCAdapter()
-  const paymentService = new PaymentService(repository, paymentProcessor);
+    // Initialize services
+    const authService = new AuthenticationService(repository);
+    const authorizationService = new AuthorizationService(repository);
 
-  const accommodationService = new AccommodationService(repository, paymentService);
-  const transportService = new TransportService(repository, paymentService);
-  const mealService = new MealService(repository, paymentService);
-  const clubService = new ClubService(repository, paymentService);
-  const notificationService = new NotificationService(repository);
+    // Payment processor (can switch between Visa and VirtualCoins)
+    const paymentProcessor = new VisaPayment(); // or new VCAdapter()
+    const paymentService = new PaymentService(repository, paymentProcessor);
 
-  // Initialize controller
-  const controller = new Controller(
-    accommodationService,
-    transportService,
-    mealService,
-    clubService,
-    notificationService,
-    authorizationService
-  );
+    const accommodationService = new AccommodationService(repository, paymentService);
+    const transportService = new TransportService(repository, paymentService);
+    const mealService = new MealService(repository, paymentService);
+    const clubService = new ClubService(repository, paymentService);
+    const notificationService = new NotificationService(repository);
 
-  const services = {
-    controller,
-    authService,
-    accommodationService,
-    transportService,
-    mealService,
-    clubService,
-    notificationService,
-    paymentService,
-  };
+    // Initialize controller
+    const controller = new Controller(
+      accommodationService,
+      transportService,
+      mealService,
+      clubService,
+      notificationService,
+      authorizationService
+    );
+
+    return {
+      controller,
+      authService,
+      accommodationService,
+      transportService,
+      mealService,
+      clubService,
+      notificationService,
+      paymentService,
+    };
+  }, []);
 
   return (
     <ServiceContext.Provider value={services}>

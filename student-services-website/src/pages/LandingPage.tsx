@@ -41,7 +41,7 @@ export const LandingPage: React.FC = () => {
               { icon: Utensils, title: 'Meals', desc: 'Order delicious meals' },
               { icon: Users, title: 'Clubs', desc: 'Join exciting clubs' },
             ].map((feature, idx) => (
-              <div key={idx} className="bg-white p-6 rounded-lg shadow-md text-center animate-slide-up" style={{ animationDelay: `${idx * 100}ms` }}>
+              <div key={idx} className="card text-center animate-slide-up" style={{ animationDelay: `${idx * 100}ms` }}>
                 <feature.icon className="mx-auto text-blue-600 mb-4" size={48} />
                 <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
                 <p className="text-gray-600">{feature.desc}</p>

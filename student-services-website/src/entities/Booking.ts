@@ -7,5 +7,5 @@ export class Booking {
     public bookingDate: Date,
     public status: 'PENDING' | 'CONFIRMED' | 'CANCELLED',
     public totalAmount: number
-  ) {}
+  ) { }
 }

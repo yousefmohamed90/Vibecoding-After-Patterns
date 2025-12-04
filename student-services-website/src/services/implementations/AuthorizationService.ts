@@ -26,8 +26,8 @@ export class AuthorizationService implements IAuthorizationService {
   checkPermission(userID: string, resource: string, action: string): boolean {
     console.log(`🔒 AuthorizationService: Checking permission for ${userID}: ${resource}:${action}`);
 
-    const user = this.permissionRepository.findById(userID, 'users');
-    
+    const user = this.permissionRepository.findById(userID, 'users', 'userID');
+
     if (!user) {
       console.log('❌ User not found');
       return false;
@@ -40,11 +40,11 @@ export class AuthorizationService implements IAuthorizationService {
     return hasPermission;
   }
 
-  async hasRole(userID: string, role: string): Promise<boolean> {
+  hasRole(userID: string, role: string): boolean {
     console.log(`🔒 AuthorizationService: Checking role for ${userID}: ${role}`);
 
-    const user = this.permissionRepository.findById(userID, 'users');
-    
+    const user = this.permissionRepository.findById(userID, 'users', 'userID');
+
     if (!user) {
       console.log('❌ User not found');
       return false;

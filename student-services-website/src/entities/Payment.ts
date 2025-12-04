@@ -7,5 +7,5 @@ export class Payment {
     public paymentMethod: string,
     public status: string,
     public description?: string
-  ) {}
+  ) { }
 }

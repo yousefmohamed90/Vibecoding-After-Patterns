@@ -7,5 +7,5 @@ export class Club {
     public memberCount?: number,
     public category?: string,
     public meetingSchedule?: string
-  ) {}
+  ) { }
 }

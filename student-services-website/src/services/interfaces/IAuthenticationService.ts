@@ -1,8 +1,3 @@
-export interface IAuthenticationService {
-  login(username: string, password: string): Promise<string>;
-  logout(): Promise<void>;
-}
-
 import { AuthToken } from '../security/TokenManager';
 import { User } from '../../entities/User';
 

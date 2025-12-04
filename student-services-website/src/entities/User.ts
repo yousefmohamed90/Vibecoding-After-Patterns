@@ -5,5 +5,5 @@ export class User {
     public passwordHash: string,
     public role: string,
     public createdDate: Date = new Date()
-  ) {}
+  ) { }
 }

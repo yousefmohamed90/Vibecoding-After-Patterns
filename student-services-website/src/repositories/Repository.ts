@@ -37,12 +37,7 @@ export class Repository implements IRepository {
   findAll(tableName: string): any[] {
     console.log(`📦 Repository: Finding all in ${tableName}`);
     const query = `SELECT_ALL ${tableName}`;
-    const result = this.dbAccess.executeQuery(query);
-    // Handle Promise if needed
-    if (result instanceof Promise) {
-      return [];
-    }
-    return Array.isArray(result) ? result : [];
+    return this.dbAccess.executeQuery(query);
   }
 
   findByQuery(criteria: Record<string, any>, tableName: string): any[] {

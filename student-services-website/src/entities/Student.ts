@@ -6,5 +6,5 @@ export class Student {
     public passwordHash: string,
     public role: string = 'STUDENT',
     public registrationDate: Date = new Date()
-  ) {}
+  ) { }
 }

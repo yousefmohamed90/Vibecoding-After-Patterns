@@ -8,5 +8,5 @@ export class Accommodation {
     public imageUrl?: string,
     public description?: string,
     public amenities?: string[]
-  ) {}
+  ) { }
 }

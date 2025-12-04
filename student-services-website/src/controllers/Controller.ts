@@ -18,39 +18,132 @@ export class Controller implements IController {
     console.log('🎮 Controller: Created (Facade Pattern)');
   }
 
-  async handleAccommodationRequest(userId: string, accommodationId: string): Promise<void> {
-    console.log(`🎮 Controller: Handling accommodation request for user ${userId}`);
-    // Check permission via authorization service (simplified for now)
-    
-    await this.accommodationService.bookAccommodation(userId, accommodationId);
-    await this.notificationService.sendNotification(userId, 'Accommodation booked successfully');
+  async handleAccommodationRequest(studentID: string, accommodationID: string): Promise<void> {
+    console.log(`🎮 Controller: Handling accommodation request for student ${studentID}`);
+
+    // Check authorization
+    if (!this.authorizationService.checkPermission(studentID, 'accommodation', 'book')) {
+      throw new Error('Unauthorized: Cannot book accommodation');
+    }
+
+    try {
+      // Delegate to service
+      this.accommodationService.bookHousing(studentID, accommodationID);
+
+      // Send confirmation notification
+      this.notificationService.sendNotification(
+        studentID,
+        'Your accommodation booking has been confirmed!',
+        'SYSTEM'
+      );
+
+      console.log('✅ Controller: Accommodation request handled successfully');
+    } catch (error) {
+      console.error('❌ Controller: Accommodation request failed:', error);
+
+      // Send failure notification
+      this.notificationService.sendNotification(
+        studentID,
+        `Accommodation booking failed: ${(error as Error).message}`,
+        'SYSTEM'
+      );
+
+      throw error;
+    }
   }
 
-  async handleTransportRequest(userId: string, transportId: string): Promise<void> {
-    console.log(`🎮 Controller: Handling transport request for user ${userId}`);
-    await this.transportService.requestTransport(userId, { transportId });
-    await this.notificationService.sendNotification(userId, 'Transport booked successfully');
+  async handleTransportRequest(studentID: string, transportID: string): Promise<void> {
+    console.log(`🎮 Controller: Handling transport request for student ${studentID}`);
+
+    if (!this.authorizationService.checkPermission(studentID, 'transport', 'book')) {
+      throw new Error('Unauthorized: Cannot book transport');
+    }
+
+    try {
+      this.transportService.bookTransport(studentID, transportID);
+
+      this.notificationService.sendNotification(
+        studentID,
+        'Your transport booking has been confirmed!',
+        'SYSTEM'
+      );
+
+      console.log('✅ Controller: Transport request handled successfully');
+    } catch (error) {
+      console.error('❌ Controller: Transport request failed:', error);
+
+      this.notificationService.sendNotification(
+        studentID,
+        `Transport booking failed: ${(error as Error).message}`,
+        'SYSTEM'
+      );
+
+      throw error;
+    }
   }
 
-  async handleMealRequest(userId: string, mealId: string): Promise<void> {
-    console.log(`🎮 Controller: Handling meal request for user ${userId}`);
-    await this.mealService.orderMeal(userId, mealId);
-    await this.notificationService.sendNotification(userId, 'Meal ordered successfully');
+  async handleMealRequest(studentID: string, mealType: string): Promise<void> {
+    console.log(`🎮 Controller: Handling meal request for student ${studentID}`);
+
+    if (!this.authorizationService.checkPermission(studentID, 'meal', 'order')) {
+      throw new Error('Unauthorized: Cannot order meal');
+    }
+
+    try {
+      this.mealService.selectMeal(studentID, mealType);
+
+      this.notificationService.sendNotification(
+        studentID,
+        'Your meal order has been confirmed!',
+        'SYSTEM'
+      );
+
+      console.log('✅ Controller: Meal request handled successfully');
+    } catch (error) {
+      console.error('❌ Controller: Meal request failed:', error);
+
+      this.notificationService.sendNotification(
+        studentID,
+        `Meal order failed: ${(error as Error).message}`,
+        'SYSTEM'
+      );
+
+      throw error;
+    }
   }
 
-  async handleClubRequest(userId: string, clubId: string): Promise<void> {
-    console.log(`🎮 Controller: Handling club request for user ${userId}`);
-    await this.clubService.joinClub(userId, clubId);
-    await this.notificationService.sendNotification(userId, 'Club joined successfully');
+  async handleClubRequest(studentID: string, clubID: string): Promise<void> {
+    console.log(`🎮 Controller: Handling club request for student ${studentID}`);
+
+    if (!this.authorizationService.checkPermission(studentID, 'club', 'join')) {
+      throw new Error('Unauthorized: Cannot join club');
+    }
+
+    try {
+      this.clubService.chooseClub(studentID, clubID);
+
+      this.notificationService.sendNotification(
+        studentID,
+        'Your club membership has been confirmed!',
+        'SYSTEM'
+      );
+
+      console.log('✅ Controller: Club request handled successfully');
+    } catch (error) {
+      console.error('❌ Controller: Club request failed:', error);
+
+      this.notificationService.sendNotification(
+        studentID,
+        `Club membership failed: ${(error as Error).message}`,
+        'SYSTEM'
+      );
+
+      throw error;
+    }
   }
 
-  async sendStudentNotification(userId: string, message: string): Promise<void> {
-    console.log(`🎮 Controller: Sending notification to student ${userId}`);
-    await this.notificationService.sendNotification(userId, message);
-  }
-
-  initializeRoutes(): void {
-    console.log('🎮 Controller: Routes initialized');
-    // Routing logic would go here
+  sendStudentNotification(studentID: string, message: string, type: 'EMAIL' | 'SMS' | 'SYSTEM'): void {
+    console.log(`🎮 Controller: Sending notification to student ${studentID}`);
+    this.notificationService.sendNotification(studentID, message, type);
   }
 }

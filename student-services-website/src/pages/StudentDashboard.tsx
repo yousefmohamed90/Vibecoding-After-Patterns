@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useServices } from '../context/ServiceContext';
 import { Card } from '../components/common/Card';
-import { Home, Bus, Utensils, Users, Bell } from 'lucide-react';
+import { Home, Bus, Utensils, Users, Bell, CreditCard } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const StudentDashboard: React.FC = () => {
@@ -17,23 +17,19 @@ export const StudentDashboard: React.FC = () => {
 
   useEffect(() => {
     if (user) {
-      try {
-        const accommodations = accommodationService.getStudentBookings(user.userId);
-        const transport = transportService.getStudentBookings(user.userId);
-        const clubs = clubService.getStudentMemberships(user.userId);
-        const notifications = notificationService.viewNotifications(user.userId);
+      const accommodations = accommodationService.getStudentBookings(user.userId);
+      const transport = transportService.getStudentBookings(user.userId);
+      const clubs = clubService.getStudentMemberships(user.userId);
+      const notifications = notificationService.viewNotifications(user.userId);
 
-        setStats({
-          accommodations: accommodations.length,
-          transport: transport.length,
-          clubs: clubs.length,
-          notifications: notifications.filter((n: any) => !n.isRead).length,
-        });
-      } catch (error) {
-        console.error('Error loading stats:', error);
-      }
+      setStats({
+        accommodations: accommodations.length,
+        transport: transport.length,
+        clubs: clubs.length,
+        notifications: notifications.filter(n => !n.isRead).length,
+      });
     }
-  }, [user, accommodationService, transportService, clubService, notificationService]);
+  }, [user]);
 
   const quickActions = [
     { icon: Home, title: 'Book Accommodation', link: '/accommodations', color: 'text-blue-600' },

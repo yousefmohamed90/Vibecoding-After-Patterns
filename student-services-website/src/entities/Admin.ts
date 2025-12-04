@@ -6,5 +6,5 @@ export class Admin {
     public passwordHash: string,
     public role: string = 'ADMIN',
     public permissions: string[] = []
-  ) {}
+  ) { }
 }
